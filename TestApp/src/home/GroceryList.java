@@ -2,23 +2,27 @@ package home;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Collection;
+
 import javax.enterprise.context.ApplicationScoped;
 
+@ApplicationScoped
 public class GroceryList {
 
-	List<GroceryItem> items;
+	Collection<GroceryItem> items;
 	
 	public GroceryList() {
-		List<GroceryItem> items = new ArrayList<GroceryItem>();
+		Collection<GroceryItem> items = new ArrayList<GroceryItem>();
 		items.add(new GroceryItem("milk", 3.99));
 		items.add(new GroceryItem("eggs", 1.99));
 		items.add(new GroceryItem("cheese", 4.85));
 		items.add(new GroceryItem("bread", 2.49));
 		items.add(new GroceryItem("ketchup", 2.99));
 		items.add(new GroceryItem("ham", 12.95));
+		this.items = items;
 	}
 
-	public List<GroceryItem> getItems() {
+	public Collection<GroceryItem> getItems() {
 		return items;
 	}
 

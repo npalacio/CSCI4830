@@ -1,6 +1,8 @@
 package home;
 
 import java.io.IOException;
+
+import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -13,6 +15,9 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/GroceryList")
 public class GroceryListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	
+	@Inject
+	private GroceryList list;
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -25,9 +30,10 @@ public class GroceryListServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("This is the grocery list page");
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    	list = new GroceryList();
+		request.setAttribute("groceryItems", list.getItems());
+		getServletContext().getRequestDispatcher("/WEB-INF/pages/groceryList.jsp").forward(request, response);
 	}
 
 	/**
