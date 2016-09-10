@@ -15,17 +15,9 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/AddRemove")
 public class GroceryAddRemoveServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	@Inject
-	private GroceryList list;
-       
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public GroceryAddRemoveServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
+	
+//	@Inject
+	private IGroceryList list;
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -33,12 +25,14 @@ public class GroceryAddRemoveServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		//response.getWriter().append("Served at: ").append(request.getContextPath());
+		list = (IGroceryList) this.getServletConfig().getServletContext().getAttribute("groceryList");
 		String itemName = request.getParameter("name");
 		if(itemName != null && !itemName.isEmpty()){
-			System.out.println("Grocery list before removing: " + list);
+			System.out.println("Grocery list before removing: " + list.count());
 			list.removeItem(itemName);
-			System.out.println("Grocery list after removing " + list);
+			System.out.println("Grocery list after removing " + list.count());
 		}
+		request.setAttribute("groceryItems", list.getItems());
 		getServletContext().getRequestDispatcher("/WEB-INF/pages/groceryList.jsp").forward(request, response);
 	}
 

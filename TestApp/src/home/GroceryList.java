@@ -7,19 +7,21 @@ import java.util.Collection;
 import javax.enterprise.context.ApplicationScoped;
 
 @ApplicationScoped
-public class GroceryList {
+public class GroceryList implements IGroceryList{
 
 	Collection<GroceryItem> items;
 	
 	public GroceryList() {
-		Collection<GroceryItem> items = new ArrayList<GroceryItem>();
-		items.add(new GroceryItem("milk", 3.99));
-		items.add(new GroceryItem("eggs", 1.99));
-		items.add(new GroceryItem("cheese", 4.85));
-		items.add(new GroceryItem("bread", 2.49));
-		items.add(new GroceryItem("ketchup", 2.99));
-		items.add(new GroceryItem("ham", 12.95));
-		this.items = items;
+		synchronized (this){
+			Collection<GroceryItem> items = new ArrayList<GroceryItem>();
+			items.add(new GroceryItem("milk", 3.99));
+			items.add(new GroceryItem("eggs", 1.99));
+			items.add(new GroceryItem("cheese", 4.85));
+			items.add(new GroceryItem("bread", 2.49));
+			items.add(new GroceryItem("ketchup", 2.99));
+			items.add(new GroceryItem("ham", 12.95));
+			this.items = items;
+		}
 	}
 
 	public Collection<GroceryItem> getItems() {
@@ -34,12 +36,18 @@ public class GroceryList {
 		for(GroceryItem item : items) {
 			if(name.equals(item.getItem())){
 				items.remove(item);
-				break;
+				System.out.println("Item Successfully Removed");
+				return;
 			}
 		}
+		System.out.println("Item not found");
 	}
 	
 	public void addItem(String item, double price){
 		items.add(new GroceryItem(item, price));
+	}
+	
+	public int count(){
+		return items.size();
 	}
 }

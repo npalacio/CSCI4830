@@ -17,7 +17,7 @@ public class GroceryListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	@Inject
-	private GroceryList list;
+	private IGroceryList list = new GroceryList();
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -31,7 +31,8 @@ public class GroceryListServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    	list = new GroceryList();
+    	//list = new GroceryList();
+    	this.getServletConfig().getServletContext().setAttribute("groceryList", list);
 		request.setAttribute("groceryItems", list.getItems());
 		getServletContext().getRequestDispatcher("/WEB-INF/pages/groceryList.jsp").forward(request, response);
 	}

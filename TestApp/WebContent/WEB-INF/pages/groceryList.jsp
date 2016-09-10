@@ -18,9 +18,16 @@
 		<tr>
 			<td>${item.item}</td>
 			<td>${item.price}</td>
-			<td><a href="TestApp/AddRemove?name=${item.item}">Remove Item</a></td>
+			<td><a href="${pageContext.request.contextPath}/AddRemove?name=${item.item}">Remove Item</a></td>
 		</tr>
 	</c:forEach>
 </table>
+<form method="post" action="${pageContext.request.contextPath}/AddRemove">
+		<p>Item</p>
+		<input type="text"/>
+		<p>Price:</p>
+		<input type="text"/>
+		
+	</form>
 </body>
 </html>
