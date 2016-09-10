@@ -18,6 +18,7 @@
 		<tr>
 			<td>${item.item}</td>
 			<td>${item.price}</td>
+			<td><a href="TestApp/AddRemove?name=${item.item}">Remove Item</a></td>
 		</tr>
 	</c:forEach>
 </table>

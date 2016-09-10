@@ -29,4 +29,17 @@ public class GroceryList {
 	public void setItems(List<GroceryItem> items) {
 		this.items = items;
 	}
+	
+	public void removeItem(String name){
+		for(GroceryItem item : items) {
+			if(name.equals(item.getItem())){
+				items.remove(item);
+				break;
+			}
+		}
+	}
+	
+	public void addItem(String item, double price){
+		items.add(new GroceryItem(item, price));
+	}
 }
