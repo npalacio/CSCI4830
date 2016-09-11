@@ -18,6 +18,7 @@ public class GroceryListServlet extends HttpServlet {
 	
 	@Inject
 	private IGroceryList list = new GroceryList();
+	int i = 0;
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -32,7 +33,16 @@ public class GroceryListServlet extends HttpServlet {
 	 */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     	//list = new GroceryList();
-    	this.getServletConfig().getServletContext().setAttribute("groceryList", list);
+    	System.out.println(list);
+    	//System.out.println("Current list size = " + list.count());
+    	System.out.println("Printing current items on list:");
+    	for(GroceryItem item : list.getItems()) {
+    		System.out.println("\t" + item.getItem());
+    	}
+    	if(i == 0){
+    		this.getServletConfig().getServletContext().setAttribute("groceryList", list);
+    		i++;
+    	}
 		request.setAttribute("groceryItems", list.getItems());
 		getServletContext().getRequestDispatcher("/WEB-INF/pages/groceryList.jsp").forward(request, response);
 	}
